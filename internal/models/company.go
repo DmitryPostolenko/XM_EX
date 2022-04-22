@@ -1,6 +1,6 @@
 package models
 
-type Message struct {
+type Company struct {
 	Id      string `json:"id"`
 	Name    string `json:"name"`
 	Code    string `json:"code"`
