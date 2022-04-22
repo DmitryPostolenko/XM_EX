@@ -10,7 +10,7 @@ database:
   port:     5432
   user:     postgres
   password: secret
-  name:     xmex
+  name:     postgres
 
 redis:
   host:     localhost

@@ -10,7 +10,7 @@ database:
   port:     5431
   user:     postgres1
   password: secret1
-  name:     xmex
+  name:     postgres1
 
 redis:
   host:     127.0.0.1

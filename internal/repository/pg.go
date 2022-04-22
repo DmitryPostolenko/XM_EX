@@ -1,4 +1,4 @@
-package database
+package repository
 
 import (
 	"log"
@@ -20,16 +20,12 @@ func (p *Pool) GetDB() *bun.DB {
 
 // To make it simplier to set up DB for testing purposes, not using mirgations.
 func InitDatabase(p *Pool) *Pool {
-	_, err := p.DB.Query("create database xmex")
-	if err != nil {
-		log.Println("DB already exists")
-	}
-	_, err = p.DB.Query(
+	_, err := p.DB.Query(
 		`create table if not exists users
 			(
 				id uuid primary key,
 				username varchar,
-				password varchar,
+				password varchar
 			);
 			create unique index if not exists users_id
 				on users (id);
@@ -43,7 +39,7 @@ func InitDatabase(p *Pool) *Pool {
 				code varchar,
 				country varchar,
 				website varchar,
-				phone varchar,
+				phone varchar
 			);
 			create unique index if not exists companies_id
 				on companies (id);

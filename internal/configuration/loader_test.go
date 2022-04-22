@@ -25,7 +25,7 @@ func TestLoadToStructs(t *testing.T) {
 					Port:     5431,
 					User:     "postgres1",
 					Password: "secret1",
-					Name:     "xmex",
+					Name:     "postgres1",
 				},
 				Server: Server{
 					Port: "8090",

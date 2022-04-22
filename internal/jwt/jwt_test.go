@@ -18,7 +18,7 @@ func TestCreateToken(t *testing.T) {
 
 	tokenDetails, err := CreateToken(userUuid.String())
 	if err != nil {
-		t.Fatal("Could not create token, package: github.com/DmitryPostolenko/lets-go-chat/pkg/jwt")
+		t.Fatal("Could not create token, package: github.com/DmitryPostolenko/XM_EX/pkg/jwt")
 	}
 
 	tokenExpiresTime := time.Now().Add(time.Minute * 15).Unix()
