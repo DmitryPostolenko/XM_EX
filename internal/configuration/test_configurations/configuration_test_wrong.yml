@@ -1,0 +1,20 @@
+api:
+  version:  v0.9
+
+server:
+  port:     8090
+
+database:
+  type:     postgres1
+  host:     localhost1
+  port:     5431
+  user:     postgres1
+  password: secret
+  name:     lgc1
+
+redis:
+  host:     127.0.0.1
+  port:     6378
+
+jwt:
+  secret:

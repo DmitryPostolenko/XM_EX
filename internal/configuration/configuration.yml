@@ -1,0 +1,20 @@
+api:
+  version:  v0.9
+
+server:
+  port:     8080
+
+database:
+  type:     postgres
+  host:     localhost
+  port:     5432
+  user:     postgres
+  password: secret
+  name:     xmex
+
+redis:
+  host:     localhost
+  port:     6379
+
+jwt:
+  secret: P7to9RQ8mqWKXDJab4fMYXoiZSzKfde6
