@@ -23,7 +23,7 @@ type LoginUserResponse struct {
 
 // LoginUser
 // Use curl:
-// curl -v POST http://localhost:8080/v1/user/login -H 'Content-Type: application/json' -d '{"userName":"my_login","password":"my_password"}'
+// curl -v POST http://localhost:8080/v0.9/user/login -H 'Content-Type: application/json' -d '{"userName":"my_login","password":"my_password"}'
 func LoginUser(c echo.Context) error {
 	db, _ := c.Get("db").(*bun.DB)
 	userRep := repository.GetUsersRepository(db)

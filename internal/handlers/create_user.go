@@ -21,7 +21,7 @@ type CreateUserResponse struct {
 
 // CreateUser
 // Use curl:
-// curl -v POST http://localhost:8080/v1/user -H 'Content-Type: application/json' -d '{"userName":"my_login","password":"my_password"}'
+// curl -v POST http://localhost:8080/v0.9/user/register -H 'Content-Type: application/json' -d '{"userName":"my_login","password":"my_password"}'
 func CreateUser(c echo.Context) error {
 	// Binding request data
 	userRequest, err := bindUserData(c)
