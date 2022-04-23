@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -14,8 +15,19 @@ import (
 // Use curl:
 // curl -v GET http://localhost:8080/v0.9/company/
 func ListCompanies(c echo.Context) error {
+
 	db, _ := c.Get("db").(*bun.DB)
 	compRep := repository.GetCompaniesRepository(db)
+
+	token := c.QueryParam("token")
+
+	fmt.Println("ListCompanies token")
+	fmt.Println(token)
+
+	if checkAuthorization(c, token) == false {
+		errMsg := "Only access from Cyprus or for authorized users allowed"
+		return handleError(nil, errMsg, http.StatusInternalServerError)
+	}
 
 	resp, ok := compRep.ListCompanies()
 	if ok != true {

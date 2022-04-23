@@ -15,7 +15,7 @@ func initRoutes(e *echo.Echo, c *configuration.Configuration) {
 
 	//Companies
 	e.POST("/"+c.Api.Version+"/company/", handlers.CreateCompany)
-	e.GET("/"+c.Api.Version+"/company/", handlers.ListCompanies)
+	e.GET("/"+c.Api.Version+"/company/list", handlers.ListCompanies)
 	e.GET("/"+c.Api.Version+"/company", handlers.FindCompanyByField)
 	e.PUT("/"+c.Api.Version+"/company/", handlers.UpdateCompany)
 	e.DELETE("/"+c.Api.Version+"/company/:id", handlers.DeleteCompany)

@@ -19,6 +19,12 @@ func FindCompanyByField(c echo.Context) error {
 
 	field := c.QueryParam("field")
 	value := c.QueryParam("value")
+	token := c.QueryParam("token")
+
+	if checkAuthorization(c, token) == false {
+		errMsg := "Only access from Cyprus or for authorized users allowed"
+		return handleError(nil, errMsg, http.StatusInternalServerError)
+	}
 
 	resp, ok := compRep.FindCompany(field, value)
 	if ok != true {
