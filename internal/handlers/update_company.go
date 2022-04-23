@@ -5,23 +5,22 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	uuid "github.com/nu7hatch/gouuid"
 	"github.com/uptrace/bun"
 
 	"github.com/DmitryPostolenko/XM_EX/internal/models"
 	"github.com/DmitryPostolenko/XM_EX/internal/repository"
 )
 
-// CreateCompanyResponse defines model for CreateCompanyResponse.
-type CreateCompanyResponse struct {
+// UpdateCompanyResponse defines model for UpdateCompanyResponse.
+type UpdateCompanyResponse struct {
 	Id          string `json:"id"`
 	CompanyName string `json:"company_name"`
 }
 
-// CreateCompany
+// UpdateCompanyResponse
 // Use curl:
-// curl -v POST http://localhost:8080/v0.9/company/ -H 'Content-Type: application/json' -d '{"name":"my_company","code":"23323","country":"Ukraine","website":"https://something.com","phone":"23323"}'
-func CreateCompany(c echo.Context) error {
+// curl -v PUT http://localhost:8080/v0.9/company/ -H 'Content-Type: application/json' -d '{"id":"6e52a033-c6e9-4305-51a6-59f00bb108b3","name":"my_company","code":"23323","country":"Ukraine","website":"https://something.com","phone":"23323"}'
+func UpdateCompany(c echo.Context) error {
 	// Binding request data
 	companyRequest, err := bindCompanyData(c)
 	if err != nil {
@@ -34,22 +33,9 @@ func CreateCompany(c echo.Context) error {
 	//Getting company repo
 	compRep := repository.GetCompaniesRepository(db)
 
-	// Checking if company name exists
-	if _, ok := compRep.FindCompany("name", companyRequest.Name); !ok {
-		errMsg := "Company already exists: " + companyRequest.Name
-		return handleError(nil, errMsg, http.StatusBadRequest)
-	}
-
-	// Creating company id
-	companyUuid, err := uuid.NewV4()
-	if err != nil {
-		errMsg := "Internal server error. Failed to create company id: "
-		return handleError(err, errMsg, http.StatusInternalServerError)
-	}
-
 	//Setting up company
 	company := models.Company{
-		Id:      companyUuid.String(),
+		Id:      companyRequest.Id,
 		Name:    companyRequest.Name,
 		Code:    companyRequest.Code,
 		Country: companyRequest.Country,
@@ -57,10 +43,10 @@ func CreateCompany(c echo.Context) error {
 		Phone:   companyRequest.Phone,
 	}
 
-	// Saving company
-	err = compRep.SaveCompany(company)
-	if err != nil {
-		errMsg := "Internal server error. Saving company failed! "
+	// Updating company
+	ok := compRep.UpdateCompany(company)
+	if !ok {
+		errMsg := "Internal server error. Updating company failed! "
 		return handleError(err, errMsg, http.StatusInternalServerError)
 	}
 

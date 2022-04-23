@@ -12,8 +12,8 @@ import (
 type CompaniesManager interface {
 	SaveCompany(models.Company) error
 	ListCompanies() (models.Company, bool)
-	FindCompany(field string, username string) (models.Company, bool)
-	//UpdateCompany(field string) error
+	FindCompany(field string, value string) (models.Company, bool)
+	UpdateCompany(models.Company) error
 	DeleteCompany(cid string) bool
 }
 
@@ -42,6 +42,15 @@ func (p *Pool) DeleteCompany(cid string) bool {
 	company := new(models.Company)
 
 	_, err := p.DB.NewDelete().Model(company).Where("id = ?", cid).Exec(ctx)
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+func (p *Pool) UpdateCompany(company models.Company) bool {
+	ctx := context.Background()
+	_, err := p.DB.NewUpdate().Model(&company).WherePK().Exec(ctx)
 	if err != nil {
 		return false
 	}

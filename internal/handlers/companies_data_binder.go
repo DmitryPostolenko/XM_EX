@@ -10,6 +10,7 @@ import (
 
 // CompanyRequest defines model for CompanyRequest.
 type CompanyRequest struct {
+	Id      string `json:"id"`
 	Name    string `json:"name" validate:"required,min=1,max=100"`
 	Code    string `json:"code" validate:"required,min=1,max=100"`
 	Country string `json:"country" validate:"required,min=1,max=20"`
