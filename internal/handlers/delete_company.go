@@ -23,6 +23,12 @@ func DeleteCompany(c echo.Context) error {
 	compRep := repository.GetCompaniesRepository(db)
 
 	companyId := c.Param("id")
+	token := c.QueryParam("token")
+
+	if checkAuthorization(c, token) == false {
+		errMsg := "Only access from Cyprus or for authorized users allowed"
+		return handleError(nil, errMsg, http.StatusInternalServerError)
+	}
 
 	ok := compRep.DeleteCompany(companyId)
 	if ok != true {

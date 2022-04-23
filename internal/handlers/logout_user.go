@@ -58,6 +58,8 @@ func LogoutUser(c echo.Context) error {
 		Msg: "Success",
 	}
 
+	c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
+
 	// Encoding response
 	enc := json.NewEncoder(c.Response())
 	err = enc.Encode(logoutUserResponse)

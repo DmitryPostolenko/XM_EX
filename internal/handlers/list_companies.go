@@ -15,7 +15,6 @@ import (
 // Use curl:
 // curl -v GET http://localhost:8080/v0.9/company/
 func ListCompanies(c echo.Context) error {
-
 	db, _ := c.Get("db").(*bun.DB)
 	compRep := repository.GetCompaniesRepository(db)
 
