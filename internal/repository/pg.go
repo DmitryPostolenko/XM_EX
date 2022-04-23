@@ -45,13 +45,13 @@ func InitDatabase(p *Pool) *Pool {
 				on companies (id);
 			create unique index  if not exists companies_name
 				on companies (name);
-			create unique index  if not exists companies_code
+			create index  if not exists companies_code
 				on companies (code);
-			create unique index  if not exists companies_country
+			create index  if not exists companies_country
 				on companies (country);
-			create unique index  if not exists companies_website
+			create index  if not exists companies_website
 				on companies (website);
-			create unique index  if not exists companies_phone
+			create index  if not exists companies_phone
 				on companies (phone);
 			`)
 	if err != nil {

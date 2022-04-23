@@ -16,7 +16,7 @@ import (
 // CreateUserResponse defines model for CreateUserResponse.
 type CreateUserResponse struct {
 	Id       string `json:"id"`
-	UserName string `json:"userName"`
+	UserName string `json:"user_name"`
 }
 
 // CreateUser

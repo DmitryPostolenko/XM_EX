@@ -13,7 +13,7 @@ import (
 func TestBindUserData(t *testing.T) {
 	e := echo.New()
 
-	testData := map[string]string{"userName": "my_login22133", "password": "my_password"}
+	testData := map[string]string{"user_name": "my_login22133", "password": "my_password"}
 	testDataM, _ := json.Marshal(testData)
 
 	rec := httptest.NewRecorder()
@@ -26,7 +26,7 @@ func TestBindUserData(t *testing.T) {
 
 	if assert.NoError(t, err) {
 		assert.Equal(t, userRequest.Password, testData["password"])
-		assert.Equal(t, userRequest.UserName, testData["userName"])
+		assert.Equal(t, userRequest.UserName, testData["user_name"])
 	}
 }
 
@@ -38,12 +38,12 @@ func TestBindUserDataInvalidUserName(t *testing.T) {
 	}{
 		{
 			name:     "UserName validation",
-			testData: map[string]string{"userName": "my", "password": "my_password"},
+			testData: map[string]string{"user_name": "my", "password": "my_password"},
 			err:      "UserName validation failed",
 		},
 		{
 			name:     "Password validation",
-			testData: map[string]string{"userName": "my_login22133", "password": "my"},
+			testData: map[string]string{"user_name": "my_login22133", "password": "my"},
 			err:      "Password validation failed",
 		},
 		{
@@ -57,8 +57,6 @@ func TestBindUserDataInvalidUserName(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			testDataM, _ := json.Marshal(tt.testData)
 
 			rec := httptest.NewRecorder()

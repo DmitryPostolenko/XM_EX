@@ -10,7 +10,7 @@ import (
 
 // UserRequest defines model for UserRequest.
 type UserRequest struct {
-	UserName string `json:"userName" validate:"required,min=4,max=100"`
+	UserName string `json:"user_name" validate:"required,min=4,max=100"`
 	Password string `json:"password" validate:"required,min=8,max=100"`
 }
 
