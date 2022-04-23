@@ -21,7 +21,7 @@ type CreateCompanyResponse struct {
 
 // CreateCompany
 // Use curl:
-// curl -v POST http://localhost:8080/v0.9/company/add -H 'Content-Type: application/json' -d '{"name":"my_company","code":"23323","country":"Ukraine","website":"https://something.com","phone":"23323"}'
+// curl -v POST http://localhost:8080/v0.9/company/ -H 'Content-Type: application/json' -d '{"name":"my_company","code":"23323","country":"Ukraine","website":"https://something.com","phone":"23323"}'
 func CreateCompany(c echo.Context) error {
 	// Binding request data
 	companyRequest, err := bindCompanyData(c)
@@ -49,7 +49,6 @@ func CreateCompany(c echo.Context) error {
 		errMsg := "Internal server error. Failed to create company id: "
 		return handleError(err, errMsg, http.StatusInternalServerError)
 	}
-	fmt.Println(companyUuid)
 
 	//Setting up company
 	company := models.Company{

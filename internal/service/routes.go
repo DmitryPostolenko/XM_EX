@@ -14,9 +14,9 @@ func initRoutes(e *echo.Echo, c *configuration.Configuration) {
 	e.DELETE("/"+c.Api.Version+"/user/logout", handlers.LogoutUser)
 
 	//Companies
-	e.POST("/"+c.Api.Version+"/company/add", handlers.CreateCompany)
-	e.GET("/"+c.Api.Version+"/company/list", handlers.ListCompanies)
-	//e.GET("/"+c.Api.Version+"/company/find/:id", handlers.FindCompany)
-	//e.PUT("/"+c.Api.Version+"/company/update/:id", handlers.UpdateCompany)
-	e.DELETE("/"+c.Api.Version+"/company/delete/:id", handlers.DeleteCompany)
+	e.POST("/"+c.Api.Version+"/company/", handlers.CreateCompany)
+	e.GET("/"+c.Api.Version+"/company/", handlers.ListCompanies)
+	e.GET("/"+c.Api.Version+"/company", handlers.FindCompany)
+	e.PUT("/"+c.Api.Version+"/company/update/:id", handlers.UpdateCompany)
+	e.DELETE("/"+c.Api.Version+"/company/:id", handlers.DeleteCompany)
 }

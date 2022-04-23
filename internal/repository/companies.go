@@ -12,7 +12,7 @@ import (
 type CompaniesManager interface {
 	SaveCompany(models.Company) error
 	ListCompanies() (models.Company, bool)
-	FindCompany(field string) (models.Company, bool)
+	FindCompany(field string, username string) (models.Company, bool)
 	//UpdateCompany(field string) error
 	DeleteCompany(cid string) bool
 }
@@ -27,14 +27,14 @@ func (p *Pool) SaveCompany(msg models.Company) error {
 	return nil
 }
 
-func (p *Pool) FindCompany(field string, value string) (models.Company, bool) {
+func (p *Pool) FindCompany(field string, value string) ([]models.Company, bool) {
 	ctx := context.Background()
-	company := new(models.Company)
-	if err := p.DB.NewSelect().Model(company).Where("? = ?", bun.Ident(field), value).Scan(ctx); err != nil {
+	company := make([]models.Company, 0)
+	if err := p.DB.NewSelect().Model(&company).Where("? = ?", bun.Ident(field), value).Scan(ctx); err != nil {
 		log.Println("Company does not exist")
-		return models.Company{}, false
+		return []models.Company{}, false
 	}
-	return *company, true
+	return company, true
 }
 
 func (p *Pool) DeleteCompany(cid string) bool {
@@ -46,7 +46,6 @@ func (p *Pool) DeleteCompany(cid string) bool {
 		return false
 	}
 	return true
-
 }
 
 func (p *Pool) ListCompanies() ([]models.Company, bool) {
