@@ -13,5 +13,5 @@ func TestHandleError(t *testing.T) {
 	errStatusCode := 500
 	r := handleError(err, errMsg, errStatusCode)
 	assert.Equal(t, errStatusCode, r.Code)
-	assert.Equal(t, errMsg+err.Error(), r.Message)
+	assert.Equal(t, errMsg, r.Message)
 }

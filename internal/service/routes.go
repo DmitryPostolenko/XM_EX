@@ -11,7 +11,7 @@ func initRoutes(e *echo.Echo, c *configuration.Configuration) {
 	// Users endpoint
 	e.POST("/"+c.Api.Version+"/user/register", handlers.CreateUser)
 	e.POST("/"+c.Api.Version+"/user/login", handlers.LoginUser)
-	//e.POST("/"+c.Api.Version+"/user/logout", handlers.LoginUser)
+	e.POST("/"+c.Api.Version+"/user/logout", handlers.LogoutUser)
 
 	//Companies
 	//e.POST("/"+c.Api.Version+"/company/add", handlers.CreateCompany)

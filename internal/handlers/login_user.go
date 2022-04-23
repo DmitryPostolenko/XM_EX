@@ -18,7 +18,7 @@ import (
 
 // LoginUserResponse defines model for LoginUserResponse.
 type LoginUserResponse struct {
-	AccessToken string `json:"url"`
+	AccessToken string `json:"token"`
 }
 
 // LoginUser
@@ -78,9 +78,8 @@ func prepareLoginResponse(c *redis.Client, uid string) (*LoginUserResponse, erro
 		return lr, handleError(err, errMsg, http.StatusInternalServerError)
 	}
 
-	loginUrl := "wss://dry-river-87369.herokuapp.com/v1/chat/ws.rtm.start?token=" + token.AccessToken
 	loginUserResponse := &LoginUserResponse{
-		AccessToken: loginUrl,
+		AccessToken: token.AccessToken,
 	}
 
 	return loginUserResponse, nil
