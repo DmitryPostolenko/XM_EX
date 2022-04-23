@@ -10,25 +10,40 @@ import (
 	"github.com/DmitryPostolenko/XM_EX/internal/repository"
 )
 
+//DeleteCompanyRespponse defines model for DeleteCompanyRespponse.
+type DeleteCompanyRespponse struct {
+	Msg string `json:"msg"`
+}
+
 // ListCompanies
 // Use curl:
 // curl -v GET http://localhost:8080/v0.9/company/list
-func ListCompanies(c echo.Context) error {
+func DeleteCompany(c echo.Context) error {
 	db, _ := c.Get("db").(*bun.DB)
 	compRep := repository.GetCompaniesRepository(db)
 
-	resp, ok := compRep.ListCompanies()
+	companyId := c.Param("id")
+
+	//fmt.Println("companyId" + companyId)
+	//fmt.Println(companyId)
+	ok := compRep.DeleteCompany(companyId)
 	if ok != true {
 		return handleError(nil, "No companies found", http.StatusBadRequest)
 	}
 
 	c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
 
-	enc := json.NewEncoder(c.Response())
-	err := enc.Encode(resp)
-	if err != nil {
-		errMsg := "Internal server error. Failed to encode listCompaniesResponse: "
-		return handleError(err, errMsg, http.StatusInternalServerError)
+	deleteCompanyRespponse := &DeleteCompanyRespponse{
+		Msg: "Success",
 	}
+
+	// Encoding response
+	enc := json.NewEncoder(c.Response())
+	err := enc.Encode(deleteCompanyRespponse)
+	if err != nil {
+		errMsg := "Failed to encode LogoutUserResponse: "
+		return handleError(err, errMsg, http.StatusBadRequest)
+	}
+
 	return nil
 }

@@ -11,12 +11,12 @@ func initRoutes(e *echo.Echo, c *configuration.Configuration) {
 	// Users endpoint
 	e.POST("/"+c.Api.Version+"/user/register", handlers.CreateUser)
 	e.POST("/"+c.Api.Version+"/user/login", handlers.LoginUser)
-	e.POST("/"+c.Api.Version+"/user/logout", handlers.LogoutUser)
+	e.DELETE("/"+c.Api.Version+"/user/logout", handlers.LogoutUser)
 
 	//Companies
-	//e.POST("/"+c.Api.Version+"/company/add", handlers.CreateCompany)
-	//e.GET("/"+c.Api.Version+"/company/list", handlers.ListCompanies)
+	e.POST("/"+c.Api.Version+"/company/add", handlers.CreateCompany)
+	e.GET("/"+c.Api.Version+"/company/list", handlers.ListCompanies)
 	//e.GET("/"+c.Api.Version+"/company/find/:id", handlers.FindCompany)
 	//e.PUT("/"+c.Api.Version+"/company/update/:id", handlers.UpdateCompany)
-	//e.DELETE("/"+c.Api.Version+"/company/delete/:id", handlers.DeleteCompany)
+	e.DELETE("/"+c.Api.Version+"/company/delete/:id", handlers.DeleteCompany)
 }
